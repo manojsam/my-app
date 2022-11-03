@@ -17,6 +17,7 @@ node{
    stage('Build Docker Image'){
    sh 'docker build -t saidamo/myweb:0.0.2 .'
    }
+	
    stage('Docker Image Push'){
    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
    sh "docker login -u saidamo -p ${dockerPassword}"
@@ -30,7 +31,7 @@ node{
    sh 'docker push 3.109.144.225:8083/damo:1.0.0'
    }
 
-   stage('Remove Previous Container'){
+   stage('Remove Previous Containers'){
 	try{
 		sh 'docker rm -f tomcattest'
 	}catch(error){
